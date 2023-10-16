@@ -1,0 +1,29 @@
+.btn-min{
+   padding: 0 8px;
+   border: 0;
+   outline: none;
+   border-radius: 4px;
+   -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   -ms-border-radius: 4px;
+   -o-border-radius: 4px;
+   color:rgb(108,117,125) ;
+   background: #cfcf00;
+}
+ul,li{
+   list-style: none;
+}
+li{
+   cursor: pointer;
+}
+.tools-item:hover{
+   background: #fff;
+}
+.trHead{
+   height: 20px;
+}
+.thHead {
+   
+   line-height: 1;
+   
+}

@@ -1,24 +1,55 @@
 <template>
   <div class="home">
-    <!-- <img alt="Vue logo" src="../assets/logo.png"> -->
-    <h3 class="text-center">Home Page</h3>
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <button class="btn btn-secondary btn-sm">Hello</button>
-        </div>
+    <div
+      class="tools border border-top-2 border-warning bg-secondary"
+      v-if="documents && documents.length > 0"
+    >
+      <div class="container">
+        <ul class="tools d-flex align-items-center m-0 p-0">
+          <li
+            class="tools-item p-1"
+            :style="{ background: selectedDocument === doc.id? '#fff' : '' }"
+            v-for="doc in documents"
+            :key="doc.id"
+            @click="selectDocument(doc)"
+          >
+            {{ doc.typeDoc }}
+          </li>
+        </ul>
       </div>
     </div>
+    <app-document :docId="selectedDocument" :list="list" :title="title"></app-document>
+
   </div>
 </template>
 
 <script>
-
+import { ref } from "vue";
+import { getData } from "@/assets/helper";
+import AppDocument from '@/components/AppDocument.vue';
 
 export default {
-  name: 'HomeView',
-  components: {
-    
-  }
-}
+  name: "HomeView",
+  components: {AppDocument},
+  setup() {
+    const documents = ref(getData('documents'))
+    const selectedDocument = ref(null)
+    const title = ref('')
+    const list = ref(null)
+    const defaultCols = ref(["№", "Наименование"])
+
+    const selectDocument = (doc) => {
+      selectedDocument.value = doc.id;
+      title.value = doc.typeDoc
+      list.value = [...defaultCols.value, ...doc.titleCols]
+      list.value.push('действия')
+    };
+    return {
+      documents,
+      selectedDocument,
+      selectDocument,
+      list,title,
+    };
+  },
+};
 </script>

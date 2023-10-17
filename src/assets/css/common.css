@@ -1,3 +1,6 @@
+html,body{
+   min-width: 768px;
+}
 .btn-min{
    padding: 0 8px;
    border: 0;
@@ -23,7 +26,19 @@ li{
    height: 20px;
 }
 .thHead {
-   
    line-height: 1;
-   
+}
+.title::first-letter{
+   text-transform: uppercase;
+}
+.docRow{
+   margin-bottom: 8px;
+}
+.docInput{
+   border-radius: 8px;
+   outline: none;
+   border: 0;
+}
+.docLabel{
+   width: 20%;
 }

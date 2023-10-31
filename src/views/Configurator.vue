@@ -1,32 +1,46 @@
 <template>
-  <div class="configurator" style="height:calc(100vh - 122px);">
-    <div class="container-fluid" style="height:calc(100vh - 122px);">
-      <div class="content py-2 d-flex" style="height:calc(100vh - 122px);">
-        <div class="sidebar" :class="{'show': isShow == true}">
-          <button class="btn btn-secondary btn-sm" id="hideSidebar"
-            @click=setVisible
+  <div class="configurator" style="height: calc(100vh - 122px)">
+    <div class="container-fluid" style="height: calc(100vh - 122px)">
+      <div class="content py-2 d-flex" style="height: calc(100vh - 122px)">
+        <div class="sidebar" :class="{ show: isShow == true }">
+          <button
+            class="btn btn-secondary btn-sm"
+            id="hideSidebar"
+            @click="setVisible"
           >
             <i class="bi bi-eye" v-if="isShow == true"></i>
             <i class="bi bi-eye-slash" v-else></i>
           </button>
           <app-select @handler="setTypeMetadata"></app-select>
         </div>
-        <div class="side-content px-5">
+        <div class="side-content px-5" v-if="typeMeta">
           <div class="side-inner bg-secondary row">
             <app-side-menu></app-side-menu>
-            <!-- <ul class="side-inner-menu menu col-3">
-              <li class="menu-item">category-1</li>
-              <li class="menu-item">category-2</li>
-              <li class="menu-item">category-3</li>
-              <li class="menu-item">category-4</li>
-              <li class="menu-item">category-5</li>
-              <li class="menu-item">category-6</li>
-              <li class="menu-item">category-7</li>
-            </ul> -->
-            <div class="col-9">
-              <app-form-documents v-if="typeForm === 'document'" :typeForm="typeForm"></app-form-documents>
-              <app-form-report v-if="typeForm === 'report'" :typeForm="typeForm"></app-form-report>
-              <app-form-guide v-if="typeForm === 'guide'" :typeForm="typeForm"></app-form-guide>
+            <div class="col-9 px-0">
+              <form class="p-0">
+                <div class="form-header">
+                  <div class="d-flex align-items-center justify-content-center" style="padding-bottom:2px;">
+                    <strong>{{ typeMeta }} </strong>
+                    <span> ({{ subName }})</span>
+                  </div>
+                </div>
+                <div class="form-body">
+                  <div class="form-row">
+                    <label for="inpName" class="form-label">Имя</label>
+                    <input type="text" 
+                      class="form-input" 
+                      id="inpName" 
+                      :placeholder="typeMeta"
+                      v-model="inpName"
+                      @change="setName"
+                    >
+                  </div>
+                  <div class="form-row">
+                    <label for="inpSynonim" class="form-label">Синоним</label>
+                    <input type="text" class="form-input" id="inpSynonim">
+                  </div>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -35,32 +49,45 @@
   </div>
 </template>
 <script>
-
-import AppSelect from '@/components/AppSelect.vue'
-import AppFormGuide from '@/components/AppFormGuide.vue'
-import AppFormReport from '@/components/AppFormReport.vue'
-import AppFormDocuments from '@/components/AppFormDocuments.vue'
-import { ref } from 'vue'
-import AppSideMenu from '@/components/AppSideMenu.vue'
+import { ref } from "vue";
+import { metaParams, setCapitalize } from "@/assets/helper";
+import AppSelect from "@/components/AppSelect.vue";
+import AppSideMenu from "@/components/AppSideMenu.vue";
 export default {
-  name:'configurator',
-  components:{AppFormGuide, AppSelect, AppFormReport, AppFormDocuments, AppSideMenu},
+  name: "configurator",
+  components: { AppSelect, AppSideMenu },
   setup() {
-    const typeForm = ref(null)
-    const isShow = ref(true)
+    const isShow = ref(true);
+    const typeMeta = ref("");
+    const subName = ref("Новый");
+    const inpName = ref('')
+
+    const setName = () => {
+      subName.value = inpName.value
+    }
 
     const setVisible = () => {
-      isShow.value = !isShow.value
-    }
+      isShow.value = !isShow.value;
+    };
     const setTypeMetadata = (typeMetaData) => {
-      typeForm.value = typeMetaData
-    }
+      if (metaParams.metaObjects[typeMetaData]) {
+        typeMeta.value = setCapitalize(
+          metaParams.metaObjects[typeMetaData].ruName
+        );
+      } else {
+        typeMeta.value = "";
+      }
+    };
 
-    return{
-      typeForm, setTypeMetadata,
-      isShow, setVisible
-    }
+    return {
+      setTypeMetadata,
+      isShow,
+      setVisible,
+      typeMeta,
+      subName,
+      inpName,
+      setName,
+    };
   },
-}
+};
 </script>
-

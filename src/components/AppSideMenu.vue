@@ -1,5 +1,5 @@
 <template>
-   <ul class="side-inner-menu menu col-3">
+   <ul class="side-inner-menu menu col-3 px-0">
       <li class="menu-item"
       :class="{'active': item.id === isActive}"
       v-for="item in list"

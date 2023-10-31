@@ -107,4 +107,23 @@ li{
 }
 .menu-item.active{
    background: rgb(255,224,131);
+   border-top-right-radius: 0;
+   border-bottom-right-radius: 0;
+}
+.form-body {
+   background: rgb(255,224,131);
+   padding: 8px;
+}
+.form-row {
+   display: flex;
+   align-items: center;
+}
+.form-label {
+   margin-right: auto;
+}
+.form-input {
+   width: 75%;
+   outline: none;
+   border: 0;
+   padding: 0 8px;
 }

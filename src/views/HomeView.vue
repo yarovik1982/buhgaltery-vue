@@ -18,13 +18,13 @@
         </ul>
       </div>
     </div>
-    <app-document :docId="selectedDocument" :list="list" :title="title"></app-document>
+    <!-- <app-document :docId="selectedDocument" :list="list" :title="title"></app-document> -->
 
   </div>
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import { getData } from "@/assets/helper";
 // import AppDocument from '@/components/AppDocument.vue';
 
@@ -44,7 +44,7 @@ export default {
       list.value = [...defaultCols.value, ...doc.titleCols]
       list.value.push('действия')
     }
-    watch(selectDocument => console.log(selectedDocument.value))
+    
     return {
       documents,
       selectedDocument,

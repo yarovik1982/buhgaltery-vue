@@ -5,7 +5,7 @@
       v-if="documents && documents.length > 0"
     >
       <div class="container">
-        <ul class="tools d-flex align-items-center m-0 p-0">
+        <ul id="menu" class="tools d-flex align-items-center m-0 p-0">
           <li
             class="tools-item p-1"
             :style="{ background: selectedDocument === doc.id? '#fff' : '' }"
@@ -24,13 +24,13 @@
 </template>
 
 <script>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { getData } from "@/assets/helper";
-import AppDocument from '@/components/AppDocument.vue';
+// import AppDocument from '@/components/AppDocument.vue';
 
 export default {
   name: "HomeView",
-  components: {AppDocument},
+  // components: {AppDocument},
   setup() {
     const documents = ref(getData('documents'))
     const selectedDocument = ref(null)
@@ -43,7 +43,8 @@ export default {
       title.value = doc.typeDoc
       list.value = [...defaultCols.value, ...doc.titleCols]
       list.value.push('действия')
-    };
+    }
+    watch(selectDocument => console.log(selectedDocument.value))
     return {
       documents,
       selectedDocument,

@@ -1,5 +1,5 @@
 <template>
-  <div class="container ">
+  
     <form class="bg-secondary p-3 mt-3" @submit.prevent="saveDocument">
       <div class="mb-1">
         <label for="inpTitle" class="form-label m-0"
@@ -29,7 +29,7 @@
       </div>
       <button type="submit" class="btn-min">Сохранить</button>
     </form>
-  </div>
+  
 </template>
 <script>
 import { ref } from "vue";
